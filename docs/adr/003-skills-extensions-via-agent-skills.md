@@ -41,6 +41,7 @@ pi 的加载约定（实测自源码）：
 
 ## 待办
 
-- [ ] agent-skills 加 `extensions/` 子目录与 `pi` target。
-- [ ] `install.sh` 加 pi 分支（两个软链目标）。
-- [ ] 校验 SKILL.md frontmatter 与 pi 的兼容性。
+- [x] agent-skills 加 `extensions/` 子目录与 `pi` target。（2026-05-29）
+- [x] `install.sh` 加 pi 分支（skills → `~/.pi/skills`，extensions → `~/.pi/agent/extensions`）。（2026-05-29）
+- [x] 链路实物验证：`claw-ping`（健康检查）+ `claw-audit`（包装 agent-harness 只读审计）经 `install.py pi` 软链、pi 自动发现、headless LLM 调用跑通。（2026-05-29）
+- [ ] 校验 SKILL.md frontmatter 与 pi 的兼容性（pi skills 目标尚无 skill 启用，待第一个 pi skill 时做）。
