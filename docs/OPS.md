@@ -10,6 +10,18 @@ ok-claw = fork(earendil-works/pi)。本文件是这个 fork 的日常运维清�
 
 ## 1. 新机器一键就绪（多机一致 · ADR-005）
 
+**一键路径**（推荐）：clone 后跑 bootstrap，再 doctor 体检。
+
+```bash
+git clone git@github.com:waybi/pi.git ~/Desktop/my/ok-claw
+cd ~/Desktop/my/ok-claw
+bash scripts/claw-bootstrap.sh    # node + build + 装扩展 + 提示登录
+# 按提示在 TUI 里 /login → ChatGPT Plus/Pro (Codex)
+bash scripts/claw-doctor.sh       # 体检：node / build / 登录 / 扩展是否到位
+```
+
+下面是 bootstrap 背后做的事（手动等价，排障时参考）：
+
 ```bash
 # 1. node（pi 要求 >=22.19.0）—— 用 nvm 装一个合规版本
 nvm install 22.22.3 && nvm use 22.22.3
