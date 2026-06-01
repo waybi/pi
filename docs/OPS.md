@@ -1,7 +1,7 @@
 # OPS — ok-claw 运维手册
 
 ok-claw = fork(earendil-works/pi)。本文件是这个 fork 的日常运维清单：
-多机部署、upstream 同步、commit 注意事项。配合 `docs/adr/` 的决策记录看。
+多机部署、upstream 同步、commit 注意事项。配合 [`USAGE.md`](USAGE.md)（怎么用）、[`workflow-design.md`](workflow-design.md)（编排策略）、`docs/adr/`（决策记录）一起看。
 
 - origin：`git@github.com:waybi/pi.git`（GitHub 仓名 `pi`，本地目录 `ok-claw`）
 - upstream：`https://github.com/earendil-works/pi.git`
