@@ -127,3 +127,18 @@ node packages/coding-agent/dist/cli.js
 # 重新 build（改了源码后）
 npm run build
 ```
+
+---
+
+## 6. 推理档与限流（实测，重要）
+
+默认档在 `~/.pi/agent/settings.json` 的 `defaultThinkingLevel`（本机设为 `high`）。但 ChatGPT Codex OAuth 这条路实测有硬限制：
+
+| 任务类型 | 用哪档 | 实测 |
+|---|---|---|
+| **单发推理**（审一个文件 / 回一个问题，内容用 `@file` 内联） | high 可用 | gpt-5.5 high ~100s 出结果，质量好 |
+| **多轮 agentic**（Ralph 循环、跨文件探索、audit-fix） | **medium** | high 几乎跑不动：每轮 server 端思考久且不流式，累积超时（doc-audit 在 high 下各种形态都 0 输出超时）。topbi audit-fix 在 medium 下跑完、清零 |
+| high vs xhigh | 别用 xhigh | 同任务无质量增益，xhigh 慢 4-5 倍、更易限流 |
+
+- **限流**：并行/连续猛打 high 请求会耗尽 ChatGPT 订阅额度 → 请求**静默挂起**（无报错、超时）。重活要**串行 + 留间隔**。
+- **经验法则**：交互/单发深思用 high；多轮自动化（Ralph）用 medium；量大的循环考虑切本地/按量 provider（见 models.json 自定义 provider）。
