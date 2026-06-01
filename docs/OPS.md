@@ -112,6 +112,9 @@ git checkout main && git merge upstream/main        # 或 rebase
 - 改完 `cd local-tools/tools/agent-skills && ./scripts/install.sh pi` 重新软链。
 - pi 启动自动发现 `~/.pi/agent/extensions/*.ts`（`--no-extensions` 可关）。
 - 现有：`claw-ping`（健康检查）、`claw-audit`（只读 AI-readiness 审计，包 agent-harness）。
+- **找现成扩展（自己写之前先查）**：社区目录 [awesome-pi.site/extensions](https://awesome-pi.site/extensions/)（按 workflow / subagent / goal / context 分类）+ 官方包注册表 pi.dev/packages。
+  装 npm 包扩展：`pi install npm:<pkg>`（落 `~/.pi/agent/npm/`，写进 `~/.pi/agent/settings.json` 的 `packages`，与 agent-skills 软链链路并存）。
+  - 已验证可用：`pi-dynamic-workflows`（Claude-Code 式 JS 编排 workflow 工具：`agent()`/`parallel()`/`pipeline()`/`phase()`，子代理继承父会话 model + 共享 codex 登录，BYO-key 下跑通）。
 
 ---
 
@@ -142,3 +145,4 @@ npm run build
 
 - **限流**：并行/连续猛打 high 请求会耗尽 ChatGPT 订阅额度 → 请求**静默挂起**（无报错、超时）。重活要**串行 + 留间隔**。
 - **经验法则**：交互/单发深思用 high；多轮自动化（Ralph）用 medium；量大的循环考虑切本地/按量 provider（见 models.json 自定义 provider）。
+- **写固化 workflow 的逐子代理定档策略**（综合用 high、探索切小、必加验证步，附 A/B 实测）见 [`workflow-design.md`](workflow-design.md)。
